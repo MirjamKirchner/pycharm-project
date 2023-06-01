@@ -1,0 +1,53 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.1.0
+    hooks:
+      # General file checks
+      - id: trailing-whitespace
+      - id: mixed-line-ending
+      - id: check-added-large-files
+        args: ["--maxkb=2048"]
+      - id: check-json
+      - id: pretty-format-json
+        args: ["--autofix"]
+      - id: check-yaml
+      # Documentation checks
+      - id: check-docstring-first
+      # Credentials checks
+      - id: detect-aws-credentials
+        args: ["--allow-missing-credentials"]
+      - id: detect-private-key
+  # Python file checks
+  - repo: local
+    hooks:
+      - id: black
+        name: black
+        entry: black
+        language: system
+        types: [ python ]
+      - id: isort
+        name: isort
+        entry: isort
+        language: system
+        types: [ python ]
+      - id: mypy
+        name: mypy
+        entry: mypy
+        language: system
+        types: [ python ]
+      - id: pylint
+        name: pylint
+        entry: pylint
+        language: system
+        types: [python]
+        args:
+          [
+            "-rn", # Only display messages
+            "-sn", # Don't display the score
+          ]
+
+
+# TODO add jupyter notebook checks when you need them using https://nbqa.readthedocs.io/en/latest/pre-commit.html
+
+
+
